@@ -6,7 +6,7 @@ reg add "HKLM\System\CurrentControlSet\Control\Terminal Server" /v "fDenyTSConne
 
 rem 2) Allow incoming RDP on firewall
 rem Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
-netsh advfirewall firewall set rule group="Remote Desktop" new enable=yes
+netsh advfirewall firewall set rule group="リモート デスクトップ" new enable=yes
 
 rem 3) Enable secure RDP authentication
 rem set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 0   
