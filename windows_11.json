@@ -140,12 +140,23 @@
     }
   ],
   "post-processors": [
-    {
-      "keep_input_artifact": false,
-      "output": "windows_11_{{.Provider}}.box",
-      "type": "vagrant",
-      "vagrantfile_template": "vagrantfile-windows_10.template"
-    }
+    [
+      {
+        "keep_input_artifact": false,
+        "output": "windows_11_{{.Provider}}.box",
+        "type": "vagrant",
+        "vagrantfile_template": "vagrantfile-windows_10.template"
+      },
+      {
+        "box_tag": "{{user `box_tag`}}",
+        "client_id": "{{user `client_id`}}",
+        "client_secret": "{{user `client_secret`}}",
+        "default_architecture": "amd64",
+        "keep_input_artifact": false,
+        "type": "vagrant-registry",
+        "version": "{{user `box_version`}}"
+      }
+    ]
   ],
   "provisioners": [
     {
@@ -187,10 +198,14 @@
   ],
   "variables": {
     "autounattend": "./answer_files/11/Autounattend.xml",
+    "box_tag": "HirotakaKato/windows_11",
+    "box_version": "{{isotime `0.20060102.150405`}}",
+    "client_id": "{{env `HCP_CLIENT_ID`}}",
+    "client_secret": "{{env `HCP_CLIENT_SECRET`}}",
     "disk_size": "61440",
     "disk_type_id": "1",
     "memory": "4096",
-    "headless": "false",
+    "headless": "true",
     "iso_checksum": "sha256:0b3256691b789ce714dacbf0b3807f5e9b983a61f4500d0fcb80414c47c0647b",
     "iso_url": "https://software-static.download.prss.microsoft.com/dbazure/888969d5-f34g-4e03-ac9d-1f9786c66749/26100.1742.240906-0331.ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_ja-jp.iso",
     "restart_timeout": "5m",

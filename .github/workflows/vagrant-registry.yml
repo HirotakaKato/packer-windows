@@ -1,0 +1,31 @@
+name: Vagrant Registry
+
+on:
+  workflow_dispatch:
+
+jobs:
+  vagrant-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          work=/mnt/work
+          dir=$PWD
+          sudo mkdir -m 750 $work
+          sudo chown $USER: $work
+          cd $work
+          rmdir $dir
+          ln -s $work $dir
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/packer
+          key: sha256:0b3256691b789ce714dacbf0b3807f5e9b983a61f4500d0fcb80414c47c0647b
+      - run: |
+          sudo apt-get -qq update
+          sudo apt-get -qq install --no-install-recommends virtualbox
+          packer plugins install github.com/hashicorp/vagrant
+          packer plugins install github.com/hashicorp/virtualbox
+          packer build -only virtualbox-iso -var box_version=$(VBoxManage -v | awk -F [._] '{ printf "0.%s.%d%d%02d", strftime("%Y%m%d"), $1, $2, $3 }') windows_11.json
+        env:
+          HCP_CLIENT_ID: ${{ secrets.HCP_CLIENT_ID }}
+          HCP_CLIENT_SECRET: ${{ secrets.HCP_CLIENT_SECRET }}
