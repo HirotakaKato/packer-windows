@@ -80,8 +80,11 @@
         "./scripts/microsoft-updates.bat",
         "./scripts/win-updates.ps1"
       ],
+      "gfx_controller": "vboxsvga",
+      "gfx_vram_size": 128,
       "guest_additions_mode": "disable",
-      "guest_os_type": "Windows10_64",
+      "guest_os_type": "Windows11_64",
+      "hard_drive_interface": "sata",
       "headless": "{{user `headless`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_url": "{{user `iso_url`}}",
@@ -155,8 +158,7 @@
     },
     {
       "scripts": [
-        "./scripts/vm-guest-tools.ps1",
-        "./scripts/debloat-windows.ps1"
+        "./scripts/vm-guest-tools.ps1"
       ],
       "type": "powershell"
     },
@@ -166,7 +168,6 @@
     },
     {
       "scripts": [
-        "./scripts/set-powerplan.ps1",
         "./scripts/docker/disable-windows-defender.ps1"
       ],
       "type": "powershell"

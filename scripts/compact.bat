@@ -26,7 +26,7 @@ if not exist "C:\Windows\Temp\sdelete.exe" (
 
 msiexec /qb /x C:\Windows\Temp\7z1900-x64.msi
 
-net stop wuauserv
+rem net stop wuauserv
 rmdir /S /Q C:\Windows\SoftwareDistribution\Download
 mkdir C:\Windows\SoftwareDistribution\Download
 net start wuauserv
